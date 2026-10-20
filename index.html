@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantina Digital | SESI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <img src="logo.png" alt="Logo Cantina Digital">
+            <h2>Cantina <span>Digital</span></h2>
+        </div>
+
+        <nav>
+            <a href="#" onclick="mostrarPagina('inicio')">Início</a>
+            <a href="#" onclick="abrirCardapio()">Cardápio</a>
+            <a href="#" onclick="mostrarPagina('sobre')">Sobre</a>
+        </nav>
+
+        <div class="usuario">
+            <span id="nomeUsuario"></span>
+            <button id="btnLogin" onclick="mostrarPagina('login')">
+                Entrar
+            </button>
+            <button id="btnSair" onclick="sair()" class="oculto">
+                Sair
+            </button>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="inicio" class="pagina">
+            <div class="hero">
+                <div class="hero-texto">
+                    <span class="etiqueta">Projeto Shark Tank SESI</span>
+
+                    <h1>Sua cantina agora é <span>digital!</span></h1>
+
+                    <p>
+                        Peça seu lanche de forma rápida, prática e
+                        sem precisar enfrentar filas. Escolha seus
+                        produtos favoritos e retire na cantina!
+                    </p>
+
+                    <button class="btn-principal" onclick="abrirCardapio()">
+                        Ver cardápio
+                    </button>
+
+                    <button class="btn-secundario" onclick="mostrarPagina('sobre')">
+                        Conheça o projeto
+                    </button>
+                </div>
+
+                <div class="hero-imagem">
+                    <img src="logo.png" alt="Cantina Digital SESI">
+                </div>
+            </div>
+
+            <div class="beneficios">
+                <div class="beneficio">
+                    <h3>⚡ Rápido</h3>
+                    <p>Faça seus pedidos em poucos cliques.</p>
+                </div>
+
+                <div class="beneficio">
+                    <h3>📱 Prático</h3>
+                    <p>Acesse o cardápio pelo celular ou computador.</p>
+                </div>
+
+                <div class="beneficio">
+                    <h3>🛒 Organizado</h3>
+                    <p>Escolha seus produtos e acompanhe seu pedido.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="login" class="pagina oculto">
+            <div class="form-container">
+                <img src="logo.png" class="logo-form" alt="Logo">
+
+                <h2>Bem-vindo de volta!</h2>
+                <p>Entre na sua conta para acessar o cardápio.</p>
+
+                <form id="formLogin">
+                    <label for="emailLogin">E-mail</label>
+                    <input type="email" id="emailLogin"
+                           placeholder="Digite seu e-mail" required>
+
+                    <label for="senhaLogin">Senha</label>
+                    <input type="password" id="senhaLogin"
+                           placeholder="Digite sua senha" required>
+
+                    <button type="submit" class="btn-principal">
+                        Entrar
+                    </button>
+                </form>
+
+                <p>
+                    Ainda não tem uma conta?
+                    <a href="#" onclick="mostrarPagina('cadastro')">
+                        Cadastre-se
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <section id="cadastro" class="pagina oculto">
+            <div class="form-container">
+                <h2>Crie sua conta</h2>
+                <p>Cadastre-se para começar a fazer seus pedidos.</p>
+
+                <form id="formCadastro">
+                    <label for="nomeCadastro">Nome completo</label>
+                    <input type="text" id="nomeCadastro"
+                           placeholder="Seu nome" required>
+
+                    <label for="emailCadastro">E-mail</label>
+                    <input type="email" id="emailCadastro"
+                           placeholder="Seu e-mail" required>
+
+                    <label for="senhaCadastro">Senha</label>
+                    <input type="password" id="senhaCadastro"
+                           placeholder="Crie uma senha"
+                           minlength="6" required>
+
+                    <label for="confirmarSenha">Confirmar senha</label>
+                    <input type="password" id="confirmarSenha"
+                           placeholder="Repita sua senha" required>
+
+                    <button type="submit" class="btn-principal">
+                        Criar conta
+                    </button>
+                </form>
+
+                <p>
+                    Já possui uma conta?
+                    <a href="#" onclick="mostrarPagina('login')">
+                        Fazer login
+                    </a>
+                </p>
+            </div>
+        </section>
+
+        <section id="cardapio" class="pagina oculto">
+            <div class="titulo-pagina">
+                <h1>Nosso Cardápio 🍔</h1>
+                <p>Escolha seus produtos favoritos!</p>
+            </div>
+
+            <div class="categorias">
+                <button class="categoria ativo"
+                        onclick="filtrarProdutos('Todos', this)">
+                    Todos
+                </button>
+
+                <button class="categoria"
+                        onclick="filtrarProdutos('Salgados', this)">
+                    Salgados
+                </button>
+
+                <button class="categoria"
+                        onclick="filtrarProdutos('Bebidas', this)">
+                    Bebidas
+                </button>
+
+                <button class="categoria"
+                        onclick="filtrarProdutos('Doces', this)">
+                    Doces
+                </button>
+            </div>
+
+            <div id="listaProdutos" class="produtos"></div>
+
+            <button class="carrinho-flutuante"
+                    onclick="mostrarPagina('carrinho')">
+                🛒 Carrinho (<span id="quantidadeCarrinho">0</span>)
+            </button>
+        </section>
+
+        <section id="carrinho" class="pagina oculto">
+            <div class="titulo-pagina">
+                <h1>🛒 Meu Carrinho</h1>
+                <p>Confira os produtos antes de finalizar.</p>
+            </div>
+
+            <div class="carrinho-container">
+                <div id="itensCarrinho"></div>
+
+                <div class="resumo">
+                    <h2>Resumo do pedido</h2>
+                    <h3>Total: <span id="totalCarrinho">R$ 0,00</span></h3>
+
+                    <button class="btn-principal" onclick="finalizarPedido()">
+                        Finalizar pedido
+                    </button>
+
+                    <button class="btn-secundario" onclick="abrirCardapio()">
+                        Continuar comprando
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="pagina oculto">
+            <div class="sobre-container">
+                <img src="logo.png" alt="Logo Cantina Digital">
+
+                <div>
+                    <h1>Sobre a Cantina Digital</h1>
+
+                    <p>
+                        A Cantina Digital é um projeto desenvolvido
+                        para o Shark Tank escolar do SESI.
+                    </p>
+
+                    <p>
+                        Nossa ideia é facilitar a compra de alimentos
+                        na cantina, oferecendo um sistema digital
+                        onde os alunos podem consultar o cardápio
+                        e realizar pedidos de maneira simples.
+                    </p>
+
+                    <p>
+                        Nosso objetivo é diminuir as filas,
+                        economizar tempo e melhorar a experiência
+                        dos alunos durante o intervalo.
+                    </p>
+
+                    <h2>Prático • Rápido • Seu</h2>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Cantina Digital - Projeto Shark Tank SESI</p>
+        <p>Prático • Rápido • Seu</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
